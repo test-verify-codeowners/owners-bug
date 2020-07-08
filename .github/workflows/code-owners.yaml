@@ -1,0 +1,24 @@
+name: "Codeowners"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+      - uses: actions/checkout@v2
+
+      # validate its codeowners structure
+      - name: GitHub CODEOWNERS Validator
+        uses: mszostok/codeowners-validator@v0.4.0
+        with:
+          checks: "owners"
+
+          github_access_token: ${{ secrets.CODEOWNERS_VALIDATE_TOKEN }}
